@@ -18,12 +18,14 @@ class JavascriptSlideshowHooks {
 	 * @param	object	Parser object passed as a reference.
 	 * @return	boolean	true
 	 */
-	public function wfSlideshowExtension(Parser &$parser) {
+	static public function wfSlideshowExtension(Parser &$parser) {
 		$output = RequestContext::getMain()->getOutput();
 		$output->addModules('ext.slideshow.main');
 
 		$parser->setHook( 'slideshow', 'JavascriptSlideshowHooks::renderSlideshowTag' );
 		$parser->setFunctionHook( 'slideshow', 'JavascriptSlideshowHooks::renderSlideshowParserFunction' );
+
+		return true;
 	}
 
 	/**
@@ -33,7 +35,7 @@ class JavascriptSlideshowHooks {
 	 * @param	string	String to explode arguments from.
 	 * @return	array	Constructed array of associative key value pairs.
 	 */
-	private function explodeArguments($string) {
+	static private function explodeArguments($string) {
 		$pairDelimiter = ' ';
 		$kvDelimiter = '=';
 
@@ -59,9 +61,9 @@ class JavascriptSlideshowHooks {
 	 * @param	string	Second argument passed to function tag, delimited list of options.
 	 * @return	string	HTML output of self::renderSlideshow()
 	 */
-	public function renderSlideshowParserFunction(&$parser, $input = '', $options = '') {
+	static public function renderSlideshowParserFunction(&$parser, $input = '', $options = '') {
 		$parser->disableCache();
-		return renderSlideshow($input, $this->explodeArguments($options));
+		return self::renderSlideshow($input, self::explodeArguments($options));
 	}
 	
 	/**
@@ -70,8 +72,8 @@ class JavascriptSlideshowHooks {
 	 * @access	public
 	 * @return	void
 	 */
-	public function renderSlideshowTag($input, $argv, $parser, $frame) {
-		$wikitext = $this->renderSlideshow( $input, $argv );
+	static public function renderSlideshowTag($input, $argv, $parser, $frame) {
+		$wikitext = self::renderSlideshow( $input, $argv );
 		$parser->disableCache();
 		return $parser->recursiveTagParse($wikitext, $frame);
 	}
@@ -126,7 +128,7 @@ class JavascriptSlideshowHooks {
 	 * @param	array	Array of global variables.
 	 * @return	boolean	True
 	 */
-	public function wfSlideshowSetGlobalJSVariables(&$vars) {
+	static public function wfSlideshowSetGlobalJSVariables(&$vars) {
 		global $wgSlideshowRefresh, $wgSlideshowSequence, $wgSlideshowTransition;
 		$vars['wgSlideshowRefresh'] = $wgSlideshowRefresh;
 		$vars['wgSlideshowSequence'] = $wgSlideshowSequence;

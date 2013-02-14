@@ -18,7 +18,7 @@ $wgExtensionCredits['parserhook'][] = array(
 		'path'=> __FILE__ ,
 		'name' => 'Javascript Slideshow',
         'author' => array('Chris Reigrut', 'Yaron Koren', 'DaSch', 'Alexia E. Smith'),
-        'version' => '0.4',
+        'version' => '1.0',
         'url' => 'https://www.mediawiki.org/wiki/Extension:Javascript_Slideshow',
         'descriptionmsg' => 'javascriptslideshow-desc',
 );

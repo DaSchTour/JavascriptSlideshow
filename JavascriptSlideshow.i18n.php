@@ -1,16 +1,15 @@
 <?php
-
 /**
- * Messages file for the JavascriptSlideshow extension
+ * Javascript Slideshow
+ * Javascript Slideshow Internationalization
  *
- * @addtogroup Extensions
- */
+ * @author		@See $wgExtensionCredits
+ * @license		GPL
+ * @package		Javacsript Slideshow
+ * @link		http://www.mediawiki.org/wiki/Extension:Javascript_Slideshow
+ *
+**/
 
-/**
- * Get all extension messages
- *
- * @return array
- */
 $messages = array();
 
 $messages['en'] = array(
@@ -18,5 +17,6 @@ $messages['en'] = array(
 );
 
 $messages['de'] = array(
-		'javascriptslideshow-desc'  => 'Erzeugt eine Slideshow aus in div eingebetteten Elementen',
+	'javascriptslideshow-desc'  => 'Erzeugt eine Slideshow aus in div eingebetteten Elementen',
 );
+?>

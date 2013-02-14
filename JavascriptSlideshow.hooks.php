@@ -86,7 +86,7 @@ class JavascriptSlideshowHooks {
 	 * @param	array	Options that have been parsed by self::explodeArguments()
 	 * @return	string	Rendered output
 	 */
-	private function renderSlideshow($wikitext, $options = array()) {
+	static private function renderSlideshow($wikitext, $options = array()) {
 		$isValid = true;
 		$validSequences = array('forward', 'backward', 'random');
 		$validTransitions = array('cut', 'fade', 'blindDown');

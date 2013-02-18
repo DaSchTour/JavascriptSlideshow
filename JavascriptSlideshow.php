@@ -17,13 +17,13 @@ if (!defined('MEDIAWIKI')) {
 $wgExtensionCredits['parserhook'][] = array(
 		'path'=> __FILE__ ,
 		'name' => 'Javascript Slideshow',
-        'author' => array('Chris Reigrut', 'Yaron Koren', 'DaSch', 'Alexia E. Smith'),
-        'version' => '1.0',
-        'url' => 'https://www.mediawiki.org/wiki/Extension:Javascript_Slideshow',
+        'author' => array('Chris Reigrut', 'Yaron Koren', '[http://www.dasch-tour.de DaSch]', 'Alexia E. Smith', 'Nick White'),
+        'version' => '1.0.1',
+        'url' => 'http://www.mediawiki.org/wiki/Extension:Javascript_Slideshow',
         'descriptionmsg' => 'javascriptslideshow-desc',
 );
  
-$dir = __DIR__."/";
+$dir = __DIR__.'/';
 
 //Internationalization
 $wgExtensionMessagesFiles['JavascriptSlideshow']		= $dir.'JavascriptSlideshow.i18n.php';
@@ -41,11 +41,9 @@ $slideshowResourceTemplate = array(
 				'remoteExtPath' => 'Slideshow',
 		);
 		
-		$wgResourceModules += array(
-				'ext.slideshow.main' => $slideshowResourceTemplate + array(
-						'scripts' => array(
-								'slideshow.js',
-						),
-				),
-		);
+$wgResourceModules += array(
+		'ext.slideshow.main' => $slideshowResourceTemplate + array(
+				'scripts' => array('slideshow.js',),
+		),
+);
 ?>

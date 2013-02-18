@@ -7,6 +7,23 @@ jQuery('.slideshow').each( function() {
         startSlideshow(id);
 });
  
+function getChildMaxImgWidth(parent) {
+	var maxWidth = 0;
+	var curWidth = 0;
+	var child;
+	var i;
+	for (i=0; i < parent.childNodes.length; i++) {
+		child = parent.childNodes[i];
+                if (child.tagName == 'IMG') {
+			curWidth = child.getAttribute("width");
+			if (curWidth > maxWidth) {
+				maxWidth = curWidth;
+			}
+		}
+	}
+	return maxWidth;
+}
+
 function getChildDivs(id) {
         var parent = document.getElementById(id);
         var spacer = document.getElementById(id + '-spacer');
@@ -15,6 +32,7 @@ function getChildDivs(id) {
         var i;
         var maxHeight = 0;
         var maxWidth = 0;
+        var maxImgWidth = 0;
         for (i=0; i < parent.childNodes.length; i++) {
                 var child = parent.childNodes[i];
                 if (child.tagName == 'DIV') {
@@ -26,9 +44,11 @@ function getChildDivs(id) {
                                 maxWidth = child.offsetWidth
                         }
                         child.style.position = 'absolute';
-                        //child.style.height = '0px';
-                        //child.style.width = '0px';
-                        //child.style.overflow = 'visible';
+			/* IE6 & IE8 need the div width to be set */
+			maxImgWidth = getChildMaxImgWidth(child);
+			if (maxImgWidth > 0) {
+                        	child.style.width = maxImgWidth + 'px';
+			}
                         jQuery(child).hide();
                 }
         }

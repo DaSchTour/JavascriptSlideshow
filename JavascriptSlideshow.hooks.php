@@ -87,7 +87,7 @@ class JavascriptSlideshowHooks {
 	 * @return	string	Rendered output
 	 */
 	static private function renderSlideshow($wikitext, $options = array()) {
-		$isValid = true;
+		$isValid = false;
 		$validSequences = array('forward', 'backward', 'random');
 		$validTransitions = array('cut', 'fade', 'blindDown');
 	
@@ -101,11 +101,17 @@ class JavascriptSlideshowHooks {
 			$output .= "Invalid sequence $sequence (May be one of: ".implode(',', $validSequences)."). ";
 			$isValid = false;
 		}
+		else {
+			$isValid = true;
+		}
 	
 		$transition = (isset($options['transition']) ? $options['transition'] : 'cut');
 		if (!in_array($transition, $validTransitions)) {
 			$output .= "Invalid transition $transition (May be one of: ".implode(',', $validTransitions)."). ";
 			$isValid = false;
+		}
+		else {
+			$isValid = true;
 		}
 	
 		if ($isValid) {

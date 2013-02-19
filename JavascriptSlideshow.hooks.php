@@ -107,11 +107,8 @@ class JavascriptSlideshowHooks {
 		}
 	
 		if ($isValid) {
-			global $wgSlideshowRefresh, $wgSlideshowSequence, $wgSlideshowTransition;
-			$wgSlideshowRefresh = $refresh;
-			$wgSlideshowSequence = $sequence;
-			$wgSlideshowTransition = $transition;
-			$output .= "<div id='$id' class='slideshow'>$wikitext</div> ";
+			var dataAttrs = "data-transition='$transition' data-refresh='$refresh' data-sequence='$sequence'";
+			$output .= "<div id='$id' class='slideshow' $dataAttrs >$wikitext</div> ";
 			$output .= "<div id='$id-spacer' class='slideshowspacer'></div>";
 		}
 	

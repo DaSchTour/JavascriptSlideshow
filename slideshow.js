@@ -3,8 +3,8 @@ var slideshowDivs = [];
 var currentDivIndexes = [];
  
 jQuery('.slideshow').each( function() {
-        id = jQuery(this).attr('id');
-        startSlideshow(id);
+	id = jQuery(this).attr('id');
+	startSlideshow(id);
 });
  
 function getChildMaxImgWidth(parent) {
@@ -14,7 +14,7 @@ function getChildMaxImgWidth(parent) {
 	var i;
 	for (i=0; i < parent.childNodes.length; i++) {
 		child = parent.childNodes[i];
-                if (child.tagName == 'IMG') {
+		if (child.tagName == 'IMG') {
 			curWidth = child.getAttribute("width");
 			if (curWidth > maxWidth) {
 				maxWidth = curWidth;
@@ -25,38 +25,38 @@ function getChildMaxImgWidth(parent) {
 }
 
 function getChildDivs(id) {
-        var parent = document.getElementById(id);
-        var spacer = document.getElementById(id + '-spacer');
-        var childDivs = [];
-        var childDivCount = 0;
-        var i;
-        var maxHeight = 0;
-        var maxWidth = 0;
-        var maxImgWidth = 0;
-        for (i=0; i < parent.childNodes.length; i++) {
-                var child = parent.childNodes[i];
-                if (child.tagName == 'DIV') {
-                        childDivs[childDivCount++] = child;
-                        if (maxHeight < child.offsetHeight) {
-                                maxHeight = child.offsetHeight
-                        }
-                        if (maxWidth < child.offsetWidth) {
-                                maxWidth = child.offsetWidth
-                        }
-                        child.style.position = 'absolute';
+	var parent = document.getElementById(id);
+	var spacer = document.getElementById(id + '-spacer');
+	var childDivs = [];
+	var childDivCount = 0;
+	var i;
+	var maxHeight = 0;
+	var maxWidth = 0;
+	var maxImgWidth = 0;
+	for (i=0; i < parent.childNodes.length; i++) {
+		var child = parent.childNodes[i];
+		if (child.tagName == 'DIV') {
+			childDivs[childDivCount++] = child;
+			if (maxHeight < child.offsetHeight) {
+				maxHeight = child.offsetHeight
+			}
+			if (maxWidth < child.offsetWidth) {
+				maxWidth = child.offsetWidth
+			}
+			child.style.position = 'absolute';
 			/* IE6 & IE8 need the div width to be set */
 			maxImgWidth = getChildMaxImgWidth(child);
 			if (maxImgWidth > 0) {
-                        	child.style.width = maxImgWidth + 'px';
+				child.style.width = maxImgWidth + 'px';
 			}
-                        jQuery(child).hide();
-                }
-        }
-        parent.style.position = 'absolute';
-        spacer.style.height = maxHeight + 'px';
-        spacer.style.width = maxWidth + 'px';
+			jQuery(child).hide();
+		}
+	}
+	parent.style.position = 'absolute';
+	spacer.style.height = maxHeight + 'px';
+	spacer.style.width = maxWidth + 'px';
  
-        return childDivs;
+	return childDivs;
 }
  
 function getInitialDivIndex(id, sequence) {
@@ -95,11 +95,11 @@ function getNextDivIndex(id) {
 		}
 	}
  
-        return index;
+	return index;
 }
  
 function getNode(id, index) {
-        return jQuery(slideshowDivs[id][index]);
+	return jQuery(slideshowDivs[id][index]);
 }
  
 function doTransition(parentId, currentNode, newNode) {

@@ -60,38 +60,40 @@ function getChildDivs(id) {
 }
  
 function getInitialDivIndex(id, sequence) {
-        var index = -1;
-        if (sequence == 'forward') {
-                index = 0;
-        } else if (sequence == 'backward') {
-                index = (slideshowDivs[id].length)-1;
-        } else if (sequence == 'random') {
-                index = Math.floor(Math.random()*slideshowDivs[id].length);
-        }
-        jQuery(slideshowDivs[id][index]).show();
-        return index;
+	var sequence = document.getElementById(id).getAttribute("data-sequence");
+	var index = -1;
+	if (sequence == 'forward') {
+		index = 0;
+	} else if (sequence == 'backward') {
+		index = (slideshowDivs[id].length)-1;
+	} else if (sequence == 'random') {
+		index = Math.floor(Math.random()*slideshowDivs[id].length);
+	}
+	jQuery(slideshowDivs[id][index]).show();
+	return index;
 }
  
-function getNextDivIndex(id, sequence) {
-        var index = -1;
-        if (sequence == 'forward') {
-                index = currentDivIndexes[id] + 1;
-                if (index == slideshowDivs[id].length) {
-                        index = 0;
-                }
-        } else if (sequence == 'backward') {
-                index = currentDivIndexes[id] - 1;
-                if (index == -1) {
-                        index = slideshowDivs[id].length - 1;
-                }
-        } else if (sequence == 'random') {
-                index = currentDivIndexes[id];
-                if (slideshowDivs[id].length > 1) {
-                        while (index == currentDivIndexes[id]) {
-                                index = Math.floor(Math.random()*slideshowDivs[id].length);
-                        }
-                }
-        }
+function getNextDivIndex(id) {
+	var sequence = document.getElementById(id).getAttribute("data-sequence");
+	var index = -1;
+	if (sequence == 'forward') {
+		index = currentDivIndexes[id] + 1;
+		if (index == slideshowDivs[id].length) {
+			index = 0;
+		}
+	} else if (sequence == 'backward') {
+		index = currentDivIndexes[id] - 1;
+		if (index == -1) {
+			index = slideshowDivs[id].length - 1;
+		}
+	} else if (sequence == 'random') {
+		index = currentDivIndexes[id];
+		if (slideshowDivs[id].length > 1) {
+			while (index == currentDivIndexes[id]) {
+				index = Math.floor(Math.random()*slideshowDivs[id].length);
+			}
+		}
+	}
  
         return index;
 }
@@ -100,30 +102,33 @@ function getNode(id, index) {
         return jQuery(slideshowDivs[id][index]);
 }
  
-function doTransition(currentNode, newNode, transition) {
-        if (transition == 'cut') {
-                currentNode.hide();
-                newNode.show();
-        } else if (transition == 'fade') {
-                currentNode.fadeOut();
-                newNode.fadeIn();
-        } else if (transition == 'blindDown') {
-                currentNode.fadeOut();
-                newNode.slideDown();
-        }
+function doTransition(parentId, currentNode, newNode) {
+	var transition = document.getElementById(parentId).getAttribute("data-transition");
+	
+	if (transition == 'cut') {
+		currentNode.hide();
+		newNode.show();
+	} else if (transition == 'fade') {
+		currentNode.fadeOut();
+		newNode.fadeIn();
+	} else if (transition == 'blindDown') {
+		currentNode.fadeOut();
+		newNode.slideDown();
+	}
 }
  
 function runSlideshow(id) {
-        var newIndex = getNextDivIndex(id, wgSlideshowSequence);
-        doTransition(getNode(id, currentDivIndexes[id]), getNode(id, newIndex), wgSlideshowTransition);
-        currentDivIndexes[id] = newIndex;
+	var newIndex = getNextDivIndex(id);
+	doTransition(id, getNode(id, currentDivIndexes[id]), getNode(id, newIndex));
+	currentDivIndexes[id] = newIndex;
 }
  
 function startSlideshow(id) {
-        slideshowDivs[id] = getChildDivs(id);
-        if (slideshowDivs[id].length > 0) {
-                currentDivIndexes[id] = getInitialDivIndex(id, wgSlideshowSequence);
-                var tempFunc = function(){ runSlideshow(id); };
-                setInterval(tempFunc, wgSlideshowRefresh);
-        }
+	slideshowDivs[id] = getChildDivs(id);
+	if (slideshowDivs[id].length > 0) {
+		var refresh = document.getElementById(id).getAttribute("data-refresh");
+		currentDivIndexes[id] = getInitialDivIndex(id);
+		var tempFunc = function(){ runSlideshow(id); };
+		setInterval(tempFunc, refresh);
+	}
 }

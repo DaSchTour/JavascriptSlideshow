@@ -95,7 +95,8 @@ class JavascriptSlideshowHooks {
 	
 		$id = (isset($options['id']) ? $options['id'] : 'slideshow_'.rand());
 		$refresh = (isset($options['refresh'] )  ? $options['refresh'] : '1000');
-	
+
+		/* set $sequence if not set and validate input */
 		$sequence = (isset($options['sequence']) ? $options['sequence'] : 'forward');
 		if (!in_array($sequence, $validSequences)) {
 			$output .= "Invalid sequence $sequence (May be one of: ".implode(',', $validSequences)."). ";
@@ -104,7 +105,8 @@ class JavascriptSlideshowHooks {
 		else {
 			$isValid = true;
 		}
-	
+
+		/* set $transition if not set and validate input */
 		$transition = (isset($options['transition']) ? $options['transition'] : 'cut');
 		if (!in_array($transition, $validTransitions)) {
 			$output .= "Invalid transition $transition (May be one of: ".implode(',', $validTransitions)."). ";
@@ -113,10 +115,11 @@ class JavascriptSlideshowHooks {
 		else {
 			$isValid = true;
 		}
-	
+		
+		/* if input is valid create output HTML */
 		if ($isValid) {
-			$dataAttrs = 'data-transition="' . $transition . '" data-refresh="' . $refresh . '" data-sequence="' . $sequence . '"';
-			$output .= '<div id="' . $id . '" class="slideshow" ' . $dataAttrs .'>' . $wikitext . '</div>';
+			$addclasses = 'js-slide-transition-' . $transition . ' js-slide-refresh-' . $refresh . ' js-slide-sequence-' . $sequence;
+			$output .= '<div id="' . $id . '" class="slideshow ' . $addclasses . '">' . $wikitext . '</div>';
 			$output .= '<div id="' . $id . '-spacer" class="slideshowspacer"></div>';
 		}
 	

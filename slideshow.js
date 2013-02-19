@@ -60,7 +60,7 @@ function getChildDivs(id) {
 }
  
 function getInitialDivIndex(id, sequence) {
-	var sequence = document.getElementById(id).getAttribute("data-sequence");
+	var sequence = getParamsFromDiv(id, "sequence");
 	var index = -1;
 	if (sequence == 'forward') {
 		index = 0;
@@ -74,7 +74,7 @@ function getInitialDivIndex(id, sequence) {
 }
  
 function getNextDivIndex(id) {
-	var sequence = document.getElementById(id).getAttribute("data-sequence");
+	var sequence = getParamsFromDiv(id, "sequence");
 	var index = -1;
 	if (sequence == 'forward') {
 		index = currentDivIndexes[id] + 1;
@@ -103,8 +103,7 @@ function getNode(id, index) {
 }
  
 function doTransition(parentId, currentNode, newNode) {
-	var transition = document.getElementById(parentId).getAttribute("data-transition");
-	
+	var transition = getParamsFromDiv(parentId, "transition")
 	if (transition == 'cut') {
 		currentNode.hide();
 		newNode.show();
@@ -126,9 +125,17 @@ function runSlideshow(id) {
 function startSlideshow(id) {
 	slideshowDivs[id] = getChildDivs(id);
 	if (slideshowDivs[id].length > 0) {
-		var refresh = document.getElementById(id).getAttribute("data-refresh");
+		var refresh = getParamsFromDiv(id, "refresh");
 		currentDivIndexes[id] = getInitialDivIndex(id);
 		var tempFunc = function(){ runSlideshow(id); };
 		setInterval(tempFunc, refresh);
 	}
+}
+
+function getParamsFromDiv(id, paramname) {
+	var paramstring = document.getElementById(id).className;
+	var startcut = paramstring.indexOf("js-slide-"+paramname+"-");
+	var endcut = paramstring.indexOf(" ",startcut);
+	var param = paramstring.substring(startcut,endcut);
+	return param;
 }

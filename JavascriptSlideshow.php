@@ -38,7 +38,7 @@ $wgHooks['MakeGlobalVariablesScript'][]	= 'JavascriptSlideshowHooks::wfSlideshow
 
 $slideshowResourceTemplate = array(
 				'localBasePath' => $dir,
-				'remoteExtPath' => 'Slideshow',
+				'remoteExtPath' => 'JavascriptSlideshow',
 		);
 		
 $wgResourceModules += array(

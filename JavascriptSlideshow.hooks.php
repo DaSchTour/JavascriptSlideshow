@@ -109,9 +109,9 @@ class JavascriptSlideshowHooks {
 		}
 	
 		if ($isValid) {
-			$dataAttrs = "data-transition='$transition' data-refresh='$refresh' data-sequence='$sequence'";
-			$output .= "<div id='$id' class='slideshow' $dataAttrs >$wikitext</div> ";
-			$output .= "<div id='$id-spacer' class='slideshowspacer'></div>";
+			$dataAttrs = 'data-transition="' . $transition . '" data-refresh="' . $refresh . '" data-sequence="' . $sequence . '"';
+			$output .= '<div id="' . $id . '" class="slideshow' . $dataAttrs .'">' . $wikitext . '</div>';
+			$output .= '<div id="' . $id-spacer . '" class="slideshowspacer"></div>';
 		}
 	
 		return $output;

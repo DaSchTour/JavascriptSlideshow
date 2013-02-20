@@ -62,7 +62,6 @@ class JavascriptSlideshowHooks {
 	 * @return	string	HTML output of self::renderSlideshow()
 	 */
 	static public function renderSlideshowParserFunction(&$parser, $input = '', $options = '') {
-		$parser->disableCache();
 		return self::renderSlideshow($input, self::explodeArguments($options));
 	}
 	
@@ -74,7 +73,6 @@ class JavascriptSlideshowHooks {
 	 */
 	static public function renderSlideshowTag($input, $argv, $parser, $frame) {
 		$wikitext = self::renderSlideshow( $input, $argv );
-		$parser->disableCache();
 		return $parser->recursiveTagParse($wikitext, $frame);
 	}
 

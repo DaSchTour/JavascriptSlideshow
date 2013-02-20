@@ -103,17 +103,19 @@ function getNode(id, index) {
 }
  
 function doTransition(parentId, currentNode, newNode) {
-	var transition = document.getElementById(parentId).getAttribute("data-transition");
+	var parent = document.getElementById(parentId);
+	var transition = parent.getAttribute("data-transition");
+	var duration = parent.getAttribute("data-transitiontime");
 	
 	if (transition == 'cut') {
 		currentNode.hide();
 		newNode.show();
 	} else if (transition == 'fade') {
-		currentNode.fadeOut();
-		newNode.fadeIn();
+		currentNode.fadeOut(Number(duration));
+		newNode.fadeIn(Number(duration));
 	} else if (transition == 'blindDown') {
-		currentNode.fadeOut();
-		newNode.slideDown();
+		currentNode.fadeOut(Number(duration));
+		newNode.slideDown(Number(duration));
 	}
 }
  

@@ -85,6 +85,12 @@ class JavascriptSlideshowHooks {
 	 * @return	string	Rendered output
 	 */
 	static private function renderSlideshow($wikitext, $options = array()) {
+		
+		/* check if HTML5 is true */
+		global $wgHtml5;
+		if (!$wgHtml5) {
+			return '$wgHtml5 must be set to true for this extension to work';
+		}
 		$isValid = true;
 		$validSequences = array('forward', 'backward', 'random');
 		$validTransitions = array('cut', 'fade', 'blindDown');

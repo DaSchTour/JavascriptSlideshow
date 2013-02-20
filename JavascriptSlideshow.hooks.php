@@ -114,21 +114,5 @@ class JavascriptSlideshowHooks {
 	
 		return $output;
 	}
-
-	/**
-	 * Renders the slideshow information into output for the calling tag or function.
-	 * @TODO - this use of global variables means that two slideshows on the same page can't have different settings, which is a bug.
-	 *
-	 * @access	public
-	 * @param	array	Array of global variables.
-	 * @return	boolean	True
-	 */
-	static public function wfSlideshowSetGlobalJSVariables(&$vars) {
-		global $wgSlideshowRefresh, $wgSlideshowSequence, $wgSlideshowTransition;
-		$vars['wgSlideshowRefresh'] = $wgSlideshowRefresh;
-		$vars['wgSlideshowSequence'] = $wgSlideshowSequence;
-		$vars['wgSlideshowTransition'] = $wgSlideshowTransition;
-		return true;
-	}
 }
 ?>

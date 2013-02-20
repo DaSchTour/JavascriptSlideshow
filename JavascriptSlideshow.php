@@ -34,7 +34,6 @@ $wgAutoloadClasses['JavascriptSlideshowHooks'] = $dir.'JavascriptSlideshow.hooks
 
 //Hooks
 $wgHooks['ParserFirstCallInit'][]		= 'JavascriptSlideshowHooks::wfSlideshowExtension';
-$wgHooks['MakeGlobalVariablesScript'][]	= 'JavascriptSlideshowHooks::wfSlideshowSetGlobalJSVariables';
 
 $slideshowResourceTemplate = array(
 				'localBasePath' => $dir,

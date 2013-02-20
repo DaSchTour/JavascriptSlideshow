@@ -89,7 +89,7 @@ class JavascriptSlideshowHooks {
 		/* check if HTML5 is true */
 		global $wgHtml5;
 		if (!$wgHtml5) {
-			return '<span class="error">' . wfMessage( 'javascriptslideshow-error-html5' )->inContentLanguage(); . '</span>';
+			return '<span class="error">' . wfMessage( 'javascriptslideshow-error-html5' )->inContentLanguage() . '</span>';
 		}
 
 		$validSequences = array('forward', 'backward', 'random');

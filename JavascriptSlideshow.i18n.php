@@ -14,9 +14,17 @@ $messages = array();
 
 $messages['en'] = array(
 	'javascriptslideshow-desc'  => 'Create a slideshow from multiple included div elements',
+	'javascriptslideshow-error-html5' => '$wgHtml5 must be set to true for this extension to work',
+	'javascriptslideshow-error-unkown' => 'Something went totaly wrong when we ended up here',
+	'javascriptslideshow-invalid-parameter' => 'Invalid parameter $1 $2 (May be one of: $3). ',
+	'javascriptslideshow-invalid-num-parameter' => 'Parameter $1 must be a number',
 );
 
 $messages['de'] = array(
 	'javascriptslideshow-desc'  => 'Erzeugt eine Slideshow aus in div eingebetteten Elementen',
+	'javascriptslideshow-error-html5' => '$wgHtml5 muss true sein damit diese Erweiterung funktioniert',
+	'javascriptslideshow-error-unkown' => 'Irgendwas ist wirklich komplett schiefgelaufen wenn wir hier angekommen sind',
+	'javascriptslideshow-invalid-parameter' => 'Nicht unterstützer Parameter $1 $2 (Erlaubt sind: $3). ',
+	'javascriptslideshow-invalid-num-parameter' => 'Der Parameter $1 muss eine Zahl sein',
 );
 ?>

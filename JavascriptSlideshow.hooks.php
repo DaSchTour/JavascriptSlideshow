@@ -85,11 +85,10 @@ class JavascriptSlideshowHooks {
 	 * @return	string	Rendered output
 	 */
 	static private function renderSlideshow($wikitext, $options = array()) {
-		
-		/* check if HTML5 is true */
+		/* HTML5 is needed so data- attributes are preserved */
 		global $wgHtml5;
 		if (!$wgHtml5) {
-			return '<span class="error">' . wfMessage( 'javascriptslideshow-error-html5' )->inContentLanguage() . '</span>';
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-html5' )->inContentLanguage() . '</span>';
 		}
 
 		$validSequences = array('forward', 'backward', 'random');
@@ -106,16 +105,16 @@ class JavascriptSlideshowHooks {
 		/* validate input*/
 		
 		if (!in_array($sequence, $validSequences)) {
-			return '<span class="error">' . wfMessage( 'javascriptslideshow-invalid-parameter', 'sequence', $sequence, implode(',', $validSequences) )->inContentLanguage() . '</span>';
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-invalid-parameter', 'sequence', $sequence, implode(', ', $validSequences) )->inContentLanguage() . '</span>';
 		}
 		elseif (!in_array($transition, $validTransitions)) {
-			return '<span class="error">' . wfMessage( 'javascriptslideshow-invalid-parameter', 'transition', $transition, implode(',', $validTransitions) )->inContentLanguage() . '</span>';
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-invalid-parameter', 'transition', $transition, implode(', ', $validTransitions) )->inContentLanguage() . '</span>';
 		}
 		elseif (!is_numeric($refresh)) {
-			return '<span class="error">' . wfMessage( 'javascriptslideshow-invalid-num-parameter', 'refresh')->inContentLanguage() . '</span>';
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-invalid-num-parameter', 'refresh')->inContentLanguage() . '</span>';
 		}
 		elseif (!is_numeric($transitiontime)) {
-			return '<span class="error">' . wfMessage( 'javascriptslideshow-invalid-num-parameter', 'transitiontime')->inContentLanguage() . '</span>';
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-invalid-num-parameter', 'transitiontime')->inContentLanguage() . '</span>';
 		}
 		else {
 			$output = '';
@@ -124,7 +123,7 @@ class JavascriptSlideshowHooks {
 			$output .= "<div id='$id-spacer' class='slideshowspacer'></div>";
 			return $output;
 		}
-		return '<span class="error">' . wfMessage( 'javascriptslideshow-error-unkown')->inContentLanguage() . '</span>';	
+		echo return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-unknown')->inContentLanguage() . '</span>';
 	}
 }
 ?>

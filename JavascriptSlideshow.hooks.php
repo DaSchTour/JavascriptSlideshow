@@ -85,36 +85,45 @@ class JavascriptSlideshowHooks {
 	 * @return	string	Rendered output
 	 */
 	static private function renderSlideshow($wikitext, $options = array()) {
-		$isValid = true;
+		/* HTML5 is needed so data- attributes are preserved */
+		global $wgHtml5;
+		if (!$wgHtml5) {
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-html5' )->inContentLanguage() . '</span>';
+		}
+
 		$validSequences = array('forward', 'backward', 'random');
 		$validTransitions = array('cut', 'fade', 'blindDown');
 	
-		$output = '';
-	
 		$id = (isset($options['id']) ? $options['id'] : 'slideshow_'.rand());
-		$refresh = (isset($options['refresh'] )  ? $options['refresh'] : '1000');
-	
+		
+		/* set default if not set */
+		$refresh = (isset($options['refresh'] )  ? $options['refresh'] : '1000');	
 		$sequence = (isset($options['sequence']) ? $options['sequence'] : 'forward');
-		if (!in_array($sequence, $validSequences)) {
-			$output .= "Invalid sequence $sequence (May be one of: ".implode(',', $validSequences)."). ";
-			$isValid = false;
-		}
-	
 		$transition = (isset($options['transition']) ? $options['transition'] : 'cut');
-		if (!in_array($transition, $validTransitions)) {
-			$output .= "Invalid transition $transition (May be one of: ".implode(',', $validTransitions)."). ";
-			$isValid = false;
-		}
-	
 		$transitiontime = (isset($options['transitiontime'] )  ? $options['transitiontime'] : '400');
-
-		if ($isValid) {
+		
+		/* validate input*/
+		
+		if (!in_array($sequence, $validSequences)) {
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-invalid-parameter', 'sequence', $sequence, implode(', ', $validSequences) )->inContentLanguage() . '</span>';
+		}
+		elseif (!in_array($transition, $validTransitions)) {
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-invalid-parameter', 'transition', $transition, implode(', ', $validTransitions) )->inContentLanguage() . '</span>';
+		}
+		elseif (!is_numeric($refresh)) {
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-invalid-num-parameter', 'refresh')->inContentLanguage() . '</span>';
+		}
+		elseif (!is_numeric($transitiontime)) {
+			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-invalid-num-parameter', 'transitiontime')->inContentLanguage() . '</span>';
+		}
+		else {
+			$output = '';
 			$dataAttrs = "data-transition='$transition' data-refresh='$refresh' data-sequence='$sequence' data-transitiontime='$transitiontime'";
 			$output .= "<div id='$id' class='slideshow' $dataAttrs >$wikitext</div> ";
 			$output .= "<div id='$id-spacer' class='slideshowspacer'></div>";
+			return $output;
 		}
-	
-		return $output;
+		echo return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-unknown')->inContentLanguage() . '</span>';
 	}
 }
 ?>

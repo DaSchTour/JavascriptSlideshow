@@ -123,7 +123,7 @@ class JavascriptSlideshowHooks {
 			$output .= "<div id='$id-spacer' class='slideshowspacer'></div>";
 			return $output;
 		}
-		echo return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-unknown')->inContentLanguage() . '</span>';
+		return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-unknown')->inContentLanguage() . '</span>';
 	}
 }
 ?>

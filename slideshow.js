@@ -19,6 +19,9 @@ function getChildMaxImgWidth(parent) {
 			if (curWidth > maxWidth) {
 				maxWidth = curWidth;
 			}
+		} else {
+			/* go recursive (needed for imgs in <a> tags) */
+			maxWidth = getChildMaxImgWidth(child);
 		}
 	}
 	return maxWidth;

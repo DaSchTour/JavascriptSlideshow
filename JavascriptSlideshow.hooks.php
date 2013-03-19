@@ -102,6 +102,7 @@ class JavascriptSlideshowHooks {
 		$sequence = (isset($options['sequence']) ? $options['sequence'] : 'forward');
 		$transition = (isset($options['transition']) ? $options['transition'] : 'cut');
 		$transitiontime = (isset($options['transitiontime'] )  ? $options['transitiontime'] : '400');
+		$center = (isset($options['center']) ? $options['center'] : 'false');
 		
 		/* validate input*/
 		
@@ -120,7 +121,8 @@ class JavascriptSlideshowHooks {
 		else {
 			$output = '';
 			$dataAttrs = "data-transition='$transition' data-refresh='$refresh' data-sequence='$sequence' data-transitiontime='$transitiontime'";
-			$output .= "<div id='$id' class='slideshow' $dataAttrs >$wikitext</div> ";
+			$styleAttrs = ($center == 'true' ? "style='margin-left:auto;margin-right:auto'" : "");
+			$output .= "<div id='$id' class='slideshow' $dataAttrs $styleAttrs >$wikitext</div> ";
 			$output .= "<div id='$id-spacer' class='slideshowspacer'></div>";
 			return $output;
 		}

@@ -55,7 +55,9 @@ function getChildDivs(id) {
 			jQuery(child).hide();
 		}
 	}
-	parent.style.position = 'absolute';
+	if (maxImgWidth > 0) {
+		parent.style.width = maxImgWidth + 'px';
+	}
 	spacer.style.height = maxHeight + 'px';
 	spacer.style.width = maxWidth + 'px';
  

@@ -44,5 +44,16 @@ $wgResourceModules += array(
 		'ext.slideshow.main' => $slideshowResourceTemplate + array(
 				'scripts' => array('slideshow.js',),
 		),
+		'ext.slideshow.css' => $slideshowResourceTemplate + array(
+				'styles' => array('JavascriptSlideshow.css',),
+		),
 );
+
+/* Add a CSS module with addModuleStyles to ensure it's loaded
+ * even if there is no Javascript support */
+$wgExtensionFunctions[]	= function () {
+	global $wgOut;
+	$wgOut->addModuleStyles('ext.slideshow.css');
+	return true;
+}
 ?>

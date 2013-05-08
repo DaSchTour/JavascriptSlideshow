@@ -40,6 +40,7 @@ function getChildDivs(id) {
 		var child = parent.childNodes[i];
 		if (child.tagName == 'DIV') {
 			childDivs[childDivCount++] = child;
+			child.style.display = 'block';
 			if (maxHeight < child.offsetHeight) {
 				maxHeight = child.offsetHeight
 			}

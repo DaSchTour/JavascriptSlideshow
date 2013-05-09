@@ -23,7 +23,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	'descriptionmsg' => 'javascriptslideshow-desc',
 );
 
-$dir = __DIR__.'/';
+$dir = dirname(__FILE__).'/';
 
 //Internationalization
 $wgExtensionMessagesFiles['JavascriptSlideshow']		= $dir.'JavascriptSlideshow.i18n.php';

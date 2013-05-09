@@ -85,8 +85,7 @@ class JavascriptSlideshowHooks {
 	 * @return	string	Rendered output
 	 */
 	static private function renderSlideshow($wikitext, $options = array()) {
-		
-		/* check if HTML5 is true */
+		/* HTML5 is needed so data- attributes are preserved */
 		global $wgHtml5;
 		if (!$wgHtml5) {
 			return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-html5' )->inContentLanguage() . '</span>';
@@ -126,7 +125,7 @@ class JavascriptSlideshowHooks {
 			$output .= "<div id='$id-spacer' class='slideshowspacer'></div>";
 			return $output;
 		}
-		return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-unknown')->inContentLanguage() . '</span>';	
+		return '<span class="error">JavascriptSlideshow: ' . wfMessage( 'javascriptslideshow-error-unknown')->inContentLanguage() . '</span>';
 	}
 }
 ?>

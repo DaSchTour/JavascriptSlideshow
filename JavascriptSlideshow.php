@@ -15,12 +15,12 @@ if (!defined('MEDIAWIKI')) {
 }
 
 $wgExtensionCredits['parserhook'][] = array(
-	'path'=> __FILE__ ,
-	'name' => 'Javascript Slideshow',
-	'author' => array('Chris Reigrut', 'Yaron Koren', '[http://www.dasch-tour.de DaSch]', 'Alexia E. Smith', 'Nick White'),
-	'version' => '1.2.2',
-	'url' => 'http://www.mediawiki.org/wiki/Extension:Javascript_Slideshow',
-	'descriptionmsg' => 'javascriptslideshow-desc',
+		'path'=> __FILE__ ,
+		'name' => 'Javascript Slideshow',
+		'author' => array('Chris Reigrut', 'Yaron Koren', '[http://www.dasch-tour.de DaSch]', 'Alexia E. Smith', 'Nick White'),
+		'version' => '1.2.3',
+		'url' => 'http://www.mediawiki.org/wiki/Extension:Javascript_Slideshow',
+		'descriptionmsg' => 'javascriptslideshow-desc',
 );
 
 $dir = dirname(__FILE__).'/';

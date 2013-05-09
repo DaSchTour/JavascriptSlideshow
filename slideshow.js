@@ -1,18 +1,18 @@
 // @TODO - this file could be fully jQuery-ized, to remove dependence on IDs.
 var slideshowDivs = [];
 var currentDivIndexes = [];
- 
-jQuery('.slideshow').each( function() {
+
+jQuery('.slideshow').each(function() {
 	id = jQuery(this).attr('id');
 	startSlideshow(id);
 });
- 
+
 function getChildMaxImgWidth(parent) {
 	var maxWidth = 0;
 	var curWidth = 0;
 	var child;
 	var i;
-	for (i=0; i < parent.childNodes.length; i++) {
+	for (i = 0; i < parent.childNodes.length; i++) {
 		child = parent.childNodes[i];
 		if (child.tagName == 'IMG') {
 			curWidth = child.getAttribute("width");
@@ -36,7 +36,7 @@ function getChildDivs(id) {
 	var maxHeight = 0;
 	var maxWidth = 0;
 	var maxImgWidth = 0;
-	for (i=0; i < parent.childNodes.length; i++) {
+	for (i = 0; i < parent.childNodes.length; i++) {
 		var child = parent.childNodes[i];
 		if (child.tagName == 'DIV') {
 			childDivs[childDivCount++] = child;
@@ -61,24 +61,24 @@ function getChildDivs(id) {
 	}
 	spacer.style.height = maxHeight + 'px';
 	spacer.style.width = maxWidth + 'px';
- 
+
 	return childDivs;
 }
- 
+
 function getInitialDivIndex(id, sequence) {
 	var sequence = document.getElementById(id).getAttribute("data-sequence");
 	var index = -1;
 	if (sequence == 'forward') {
 		index = 0;
 	} else if (sequence == 'backward') {
-		index = (slideshowDivs[id].length)-1;
+		index = (slideshowDivs[id].length) - 1;
 	} else if (sequence == 'random') {
-		index = Math.floor(Math.random()*slideshowDivs[id].length);
+		index = Math.floor(Math.random() * slideshowDivs[id].length);
 	}
 	jQuery(slideshowDivs[id][index]).show();
 	return index;
 }
- 
+
 function getNextDivIndex(id) {
 	var sequence = document.getElementById(id).getAttribute("data-sequence");
 	var index = -1;
@@ -96,23 +96,23 @@ function getNextDivIndex(id) {
 		index = currentDivIndexes[id];
 		if (slideshowDivs[id].length > 1) {
 			while (index == currentDivIndexes[id]) {
-				index = Math.floor(Math.random()*slideshowDivs[id].length);
+				index = Math.floor(Math.random() * slideshowDivs[id].length);
 			}
 		}
 	}
- 
+
 	return index;
 }
- 
+
 function getNode(id, index) {
 	return jQuery(slideshowDivs[id][index]);
 }
- 
+
 function doTransition(parentId, currentNode, newNode) {
 	var parent = document.getElementById(parentId);
 	var transition = parent.getAttribute("data-transition");
 	var duration = parent.getAttribute("data-transitiontime");
-	
+
 	if (transition == 'cut') {
 		currentNode.hide();
 		newNode.show();
@@ -124,19 +124,21 @@ function doTransition(parentId, currentNode, newNode) {
 		newNode.slideDown(Number(duration));
 	}
 }
- 
+
 function runSlideshow(id) {
 	var newIndex = getNextDivIndex(id);
 	doTransition(id, getNode(id, currentDivIndexes[id]), getNode(id, newIndex));
 	currentDivIndexes[id] = newIndex;
 }
- 
+
 function startSlideshow(id) {
 	slideshowDivs[id] = getChildDivs(id);
 	if (slideshowDivs[id].length > 0) {
 		var refresh = document.getElementById(id).getAttribute("data-refresh");
 		currentDivIndexes[id] = getInitialDivIndex(id);
-		var tempFunc = function(){ runSlideshow(id); };
+		var tempFunc = function() {
+			runSlideshow(id);
+		};
 		setInterval(tempFunc, refresh);
 	}
 }

@@ -23,7 +23,7 @@ $messages['en'] = array(
 $messages['de'] = array(
 	'javascriptslideshow-desc'  => 'Erzeugt eine Slideshow aus in div eingebetteten Elementen',
 	'javascriptslideshow-error-html5' => '$wgHtml5 muss true sein damit diese Erweiterung funktioniert',
-	'javascriptslideshow-error-unknown' => 'Irgendwas ist wirklich komplett schief gelaufen wenn wir hier angekommen sind',
+	'javascriptslideshow-error-unknown' => 'Irgendwas ist wirklich komplett schiefgelaufen wenn wir hier angekommen sind',
 	'javascriptslideshow-invalid-parameter' => 'Nicht unterstützer Wert $2 für Parameter $1 (Erlaubt sind: $3). ',
 	'javascriptslideshow-invalid-num-parameter' => 'Der Parameter $1 muss eine Zahl sein',
 );

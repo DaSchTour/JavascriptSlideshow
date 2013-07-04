@@ -1,7 +1,7 @@
 /* Hide all but first slideshow child div initially */
-div.slideshow>div {
+div.slideshow > div {
 	display: none;
 }
-div.slideshow>div:first-child {
+div.slideshow > div:first-child {
 	display: block;
 }

@@ -7,24 +7,41 @@ jQuery('.slideshow').each(function() {
 	startSlideshow(id);
 });
 
-function getChildMaxImgWidth(parent) {
-	var maxWidth = 0;
-	var curWidth = 0;
+function useAutoImgDimensions(parent) {
 	var child;
 	var i;
 	for (i = 0; i < parent.childNodes.length; i++) {
 		child = parent.childNodes[i];
 		if (child.tagName == 'IMG') {
-			curWidth = child.getAttribute("width");
-			if (curWidth > maxWidth) {
-				maxWidth = curWidth;
+			child.setAttribute('height', 'auto');
+			/* Note parent divs will have the width set correctly
+			 * so this won't result in stretched images */
+			child.setAttribute('width', '100%');
+		} else {
+			useAutoImgDimensions(child);
+		}
+	}
+}
+
+/* dimension can either be height or width */
+function getChildMaxImgDimension(parent, dimension) {
+	var maxDimension = 0;
+	var curDimension = 0;
+	var child;
+	var i;
+	for (i = 0; i < parent.childNodes.length; i++) {
+		child = parent.childNodes[i];
+		if (child.tagName == 'IMG') {
+			curDimension = child.getAttribute(dimension);
+			if (curDimension > maxDimension) {
+				maxDimension = curDimension;
 			}
 		} else {
 			/* go recursive (needed for imgs in <a> tags) */
-			maxWidth = getChildMaxImgWidth(child);
+			maxDimension = getChildMaxImgDimension(child);
 		}
 	}
-	return maxWidth;
+	return maxDimension;
 }
 
 function getChildDivs(id) {
@@ -35,31 +52,46 @@ function getChildDivs(id) {
 	var i;
 	var maxHeight = 0;
 	var maxWidth = 0;
+	var maxImgHeight = 0;
 	var maxImgWidth = 0;
 	for (i = 0; i < parent.childNodes.length; i++) {
 		var child = parent.childNodes[i];
 		if (child.tagName == 'DIV') {
 			childDivs[childDivCount++] = child;
 			child.style.display = 'block';
+			child.style.maxWidth = 'none';
 			if (maxHeight < child.offsetHeight) {
 				maxHeight = child.offsetHeight
 			}
 			if (maxWidth < child.offsetWidth) {
 				maxWidth = child.offsetWidth
 			}
-			child.style.position = 'absolute';
 			/* IE6 & IE8 need the div width to be set */
-			maxImgWidth = getChildMaxImgWidth(child);
+			maxImgWidth = getChildMaxImgDimension(child, "width");
+			maxImgHeight = getChildMaxImgDimension(child, "height");
+			child.style.position = 'absolute';
+			child.style.maxWidth = '100%';
 			if (maxImgWidth > 0) {
 				child.style.width = maxImgWidth + 'px';
 			}
 			jQuery(child).hide();
 		}
 	}
+
+	/* IE8 needs this in order to scale images correctly */
+	useAutoImgDimensions(parent);
+
 	if (maxImgWidth > 0) {
 		parent.style.width = maxImgWidth + 'px';
 	}
 	spacer.style.height = maxHeight + 'px';
+	/* Use maxImageHeight as otherwise it will use the original image height,
+	 * which may be from a scaled down image. This is unfortunate as it will
+	 * result in excess space below the image if it has been scaled down, but
+	 * it's preferable to having overlaps if the window width increases. */
+	if (maxImgHeight > 0) {
+		spacer.style.height = maxImgHeight + 'px';
+	}
 	spacer.style.width = maxWidth + 'px';
 
 	return childDivs;

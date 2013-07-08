@@ -16,7 +16,7 @@ function useAutoImgDimensions(parent) {
 			child.setAttribute('height', 'auto');
 			/* Note parent divs will have the width set correctly
 			 * so this won't result in stretched images */
-			child.setAttribute('width', '100%');
+			child.setAttribute('width', '70%');
 		} else {
 			useAutoImgDimensions(child);
 		}
@@ -70,7 +70,7 @@ function getChildDivs(id) {
 			maxImgWidth = getChildMaxImgDimension(child, "width");
 			maxImgHeight = getChildMaxImgDimension(child, "height");
 			child.style.position = 'absolute';
-			child.style.maxWidth = '100%';
+			child.style.maxWidth = '70%';
 			if (maxImgWidth > 0) {
 				child.style.width = maxImgWidth + 'px';
 			}

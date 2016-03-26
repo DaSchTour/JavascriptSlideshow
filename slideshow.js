@@ -54,6 +54,8 @@ function getChildDivs(id) {
 	var maxWidth = 0;
 	var maxImgHeight = 0;
 	var maxImgWidth = 0;
+
+	useAutoImgDimensions(parent);
 	for (i = 0; i < parent.childNodes.length; i++) {
 		var child = parent.childNodes[i];
 		if (child.tagName == 'DIV') {
@@ -71,15 +73,12 @@ function getChildDivs(id) {
 			maxImgHeight = getChildMaxImgDimension(child, "height");
 			child.style.position = 'absolute';
 			child.style.maxWidth = '100%';
-			if (maxImgWidth > 0) {
-				child.style.width = maxImgWidth + 'px';
+			if (maxWidth > 0) {
+				child.style.width = maxWidth + 'px';
 			}
 			jQuery(child).hide();
 		}
 	}
-
-	/* IE8 needs this in order to scale images correctly */
-	useAutoImgDimensions(parent);
 
 	if (maxImgWidth > 0) {
 		parent.style.width = maxImgWidth + 'px';

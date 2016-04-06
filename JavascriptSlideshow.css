@@ -1,0 +1,15 @@
+/* Hide all but first slideshow child div initially */
+div.slideshow > div {
+	display: none;
+}
+div.slideshow > div:first-child {
+	display: block;
+}
+
+/* Ensure slideshow never overlaps its parent, instead scaling the image */
+.slideshow,
+.slideshow div,
+.slideshow div img {
+	max-width: 100%;
+	height: auto;
+}

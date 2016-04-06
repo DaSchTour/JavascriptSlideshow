@@ -11,19 +11,19 @@
 **/
 
 if (!defined('MEDIAWIKI')) {
-        die();
+	die();
 }
- 
+
 $wgExtensionCredits['parserhook'][] = array(
 		'path'=> __FILE__ ,
 		'name' => 'Javascript Slideshow',
-        'author' => array('Chris Reigrut', 'Yaron Koren', '[http://www.dasch-tour.de DaSch]', 'Alexia E. Smith', 'Nick White'),
-        'version' => '1.0.3',
-        'url' => 'http://www.mediawiki.org/wiki/Extension:Javascript_Slideshow',
-        'descriptionmsg' => 'javascriptslideshow-desc',
+		'author' => array('Chris Reigrut', 'Yaron Koren', '[http://www.dasch-tour.de DaSch]', 'Alexia E. Smith', 'Nick White'),
+		'version' => '1.2.3',
+		'url' => 'http://www.mediawiki.org/wiki/Extension:Javascript_Slideshow',
+		'descriptionmsg' => 'javascriptslideshow-desc',
 );
- 
-$dir = __DIR__.'/';
+
+$dir = dirname(__FILE__).'/';
 
 //Internationalization
 $wgExtensionMessagesFiles['JavascriptSlideshow']		= $dir.'JavascriptSlideshow.i18n.php';
@@ -34,7 +34,6 @@ $wgAutoloadClasses['JavascriptSlideshowHooks'] = $dir.'JavascriptSlideshow.hooks
 
 //Hooks
 $wgHooks['ParserFirstCallInit'][]		= 'JavascriptSlideshowHooks::wfSlideshowExtension';
-$wgHooks['MakeGlobalVariablesScript'][]	= 'JavascriptSlideshowHooks::wfSlideshowSetGlobalJSVariables';
 
 $slideshowResourceTemplate = array(
 				'localBasePath' => $dir,
@@ -45,5 +44,16 @@ $wgResourceModules += array(
 		'ext.slideshow.main' => $slideshowResourceTemplate + array(
 				'scripts' => array('slideshow.js',),
 		),
+		'ext.slideshow.css' => $slideshowResourceTemplate + array(
+				'styles' => array('JavascriptSlideshow.css',),
+		),
 );
+
+/* Add a CSS module with addModuleStyles to ensure it's loaded
+ * even if there is no Javascript support */
+$wgExtensionFunctions[]	= function () {
+	global $wgOut;
+	$wgOut->addModuleStyles('ext.slideshow.css');
+	return true;
+}
 ?>
